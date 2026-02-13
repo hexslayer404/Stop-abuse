@@ -3,47 +3,9 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Telegram Abuse Report</title>
-
-<style>
-body{
-  font-family:Arial;
-  padding:20px;
-  max-width:600px;
-  margin:auto;
-  background:#0f172a;
-  color:white;
-}
-
-.menu{
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.menu a{
-  margin:0 10px;
-  color:#38bdf8;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-button{
-  transition:0.2s;
-}
-
-button:hover{
-  opacity:0.85;
-}
-</style>
 </head>
 
-<body>
-
-<div class="menu">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-  <a href="support.html" style="color:#22c55e;">Support Me</a>
-</div>
+<body style="font-family:Arial;padding:20px;max-width:600px;margin:auto;">
 
 <h2>Telegram Abuse Report</h2>
 
@@ -73,13 +35,23 @@ button:hover{
 <br><br>
 
 <button onclick="sendMail()"
-style="width:100%;padding:14px;background:#e60000;color:white;font-weight:bold;border:none;border-radius:8px;">
+style="
+width:100%;
+padding:14px;
+background:#e60000;
+color:white;
+font-weight:bold;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+">
 Submit Official Report
 </button>
 
 <hr>
 
-<div style="text-align:center;font-size:13px;color:#aaa;">
+<div style="text-align:center;font-size:13px;color:#666;">
   Created by <b>Muhammed Adhinan Khais.c</b><br>
   Contact: <b>hexslayer404@gmail.com</b>
 </div>
@@ -108,20 +80,48 @@ function sendMail(){
       "\n";
   }
 
-  var explanation = "Complaint submitted for review.";
+  var explanation = "";
+
+  if(reason === "Child Sexual Abuse Material (CSAM)"){
+    explanation =
+    "This Telegram entity appears to be distributing or facilitating access to Child Sexual Abuse Material (CSAM), which is a grave criminal offense under Indian IT Act and POCSO Act. The presence, sharing, or solicitation of such material poses immediate harm to minors and requires urgent intervention. Immediate investigation and takedown is strongly requested.";
+  }
+
+  else if(reason === "Child Exploitation / Grooming"){
+    explanation =
+    "The reported Telegram account/group appears to be involved in grooming, coercion, or exploitation of minors. Such behavior indicates potential predatory intent and psychological manipulation targeting children. This requires immediate cyber forensic review and preventive enforcement action to safeguard minors from harm.";
+  }
+
+  else if(reason === "Indecent / Sexual Talk"){
+    explanation =
+    "The reported Telegram entity is engaged in explicit sexual conversations and indecent content distribution that may violate platform policies and cyber regulations. While not necessarily involving minors, the content is inappropriate and may encourage harmful online behavior. Investigation and corrective moderation is requested.";
+  }
+
+  else if(reason === "18+ Incest / Family Sexual Talk (No Minors)"){
+    explanation =
+    "The Telegram entity appears to promote explicit incest-related or taboo sexual discussions among adults. Although no minors are indicated, such content may violate platform community standards and digital ethics guidelines. A policy review and appropriate moderation action is requested.";
+  }
 
   var to = "cybercrime@nic.in";
   var cc = "abuse@telegram.org";
 
-  var subject = encodeURIComponent("Telegram Abuse Report – " + reason);
+  var subject = encodeURIComponent(
+    "URGENT: Telegram Abuse Report – " + reason
+  );
 
   var body = encodeURIComponent(
+    "Respected Cyber Crime Team,\n\n" +
     reporter +
     "Platform: Telegram\n" +
-    "Nature: " + reason + "\n" +
+    "Nature of Complaint: " + reason + "\n" +
     "Reported On: " + timestamp + "\n\n" +
-    "Link:\n" + link + "\n\n" +
-    explanation
+    "Link / Username:\n" +
+    link + "\n\n" +
+    "Detailed Explanation:\n" +
+    explanation + "\n\n" +
+    "Kindly investigate this matter with urgency and take appropriate legal and platform-level action.\n\n" +
+    "Evidence:\nScreenshots or additional documentation can be provided upon request.\n\n" +
+    "Emergency Note:\nIf a child is in immediate danger, please contact emergency services (1930 / 112).\n"
   );
 
   window.location.href =
