@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telegram Abuse Report</title>
+</head>
+
+<body style="font-family:Arial;padding:20px;max-width:600px;margin:auto;">
+
+<h2>Telegram Abuse Report</h2>
+
+<p>Reporter Name (optional):</p>
+<input id="rname" type="text" style="width:100%;padding:8px;">
+
+<br><br>
+
+<p>Reporter Contact (optional):</p>
+<input id="rcontact" type="text" style="width:100%;padding:8px;">
+
+<br><br>
+
+<p>Paste Telegram group / channel / user link:</p>
+<textarea id="link" rows="4" style="width:100%;padding:8px;"></textarea>
+
+<br><br>
+
+<p>Select Nature of Complaint:</p>
+<select id="reason" style="width:100%;padding:8px;">
+  <option>Child Sexual Abuse Material (CSAM)</option>
+  <option>Child Exploitation / Grooming</option>
+  <option>Indecent / Sexual Talk</option>
+  <option>18+ Incest / Family Sexual Talk (No Minors)</option>
+</select>
+
+<br><br>
+
+<button onclick="sendMail()"
+style="
+width:100%;
+padding:14px;
+background:#e60000;
+color:white;
+font-weight:bold;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+">
+Submit Official Report
+</button>
+
+<hr>
+
+<div style="text-align:center;font-size:13px;color:#666;">
+  Created by <b>Muhammed Adhinan Khais.c</b><br>
+  Contact: <b>hexslayer404@gmail.com</b>
+</div>
+
+<script>
+function sendMail(){
+
+  var rname = document.getElementById("rname").value.trim();
+  var rcontact = document.getElementById("rcontact").value.trim();
+  var link = document.getElementById("link").value.trim();
+  var reason = document.getElementById("reason").value;
+
+  if(link === ""){
+    alert("Paste Telegram link first");
+    return;
+  }
+
+  var timestamp = new Date().toLocaleString();
+
+  var reporter = "";
+  if (rname !== "" || rcontact !== "") {
+    reporter =
+      "Reporter Details:\n" +
+      (rname !== "" ? "Name: " + rname + "\n" : "") +
+      (rcontact !== "" ? "Contact: " + rcontact + "\n" : "") +
+      "\n";
+  }
+
+  var explanation = "";
+
+  if(reason === "Child Sexual Abuse Material (CSAM)"){
+    explanation =
+    "This Telegram entity appears to be distributing or facilitating access to Child Sexual Abuse Material (CSAM), which is a grave criminal offense under Indian IT Act and POCSO Act. The presence, sharing, or solicitation of such material poses immediate harm to minors and requires urgent intervention. Immediate investigation and takedown is strongly requested.";
+  }
+
+  else if(reason === "Child Exploitation / Grooming"){
+    explanation =
+    "The reported Telegram account/group appears to be involved in grooming, coercion, or exploitation of minors. Such behavior indicates potential predatory intent and psychological manipulation targeting children. This requires immediate cyber forensic review and preventive enforcement action to safeguard minors from harm.";
+  }
+
+  else if(reason === "Indecent / Sexual Talk"){
+    explanation =
+    "The reported Telegram entity is engaged in explicit sexual conversations and indecent content distribution that may violate platform policies and cyber regulations. While not necessarily involving minors, the content is inappropriate and may encourage harmful online behavior. Investigation and corrective moderation is requested.";
+  }
+
+  else if(reason === "18+ Incest / Family Sexual Talk (No Minors)"){
+    explanation =
+    "The Telegram entity appears to promote explicit incest-related or taboo sexual discussions among adults. Although no minors are indicated, such content may violate platform community standards and digital ethics guidelines. A policy review and appropriate moderation action is requested.";
+  }
+
+  var to = "cybercrime@nic.in";
+  var cc = "abuse@telegram.org";
+
+  var subject = encodeURIComponent(
+    "URGENT: Telegram Abuse Report – " + reason
+  );
+
+  var body = encodeURIComponent(
+    "Respected Cyber Crime Team,\n\n" +
+    reporter +
+    "Platform: Telegram\n" +
+    "Nature of Complaint: " + reason + "\n" +
+    "Reported On: " + timestamp + "\n\n" +
+    "Link / Username:\n" +
+    link + "\n\n" +
+    "Detailed Explanation:\n" +
+    explanation + "\n\n" +
+    "Kindly investigate this matter with urgency and take appropriate legal and platform-level action.\n\n" +
+    "Evidence:\nScreenshots or additional documentation can be provided upon request.\n\n" +
+    "Emergency Note:\nIf a child is in immediate danger, please contact emergency services (1930 / 112).\n"
+  );
+
+  window.location.href =
+    "mailto:" + to +
+    "?cc=" + cc +
+    "&subject=" + subject +
+    "&body=" + body;
+}
+</script>
+
+</body>
+</html>
