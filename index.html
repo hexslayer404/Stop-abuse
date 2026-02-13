@@ -7,6 +7,36 @@
 
 <body style="font-family:Arial;padding:20px;max-width:600px;margin:auto;">
 
+<!-- ✅ SUPPORT SECTION (ADDED ONLY) -->
+<div style="text-align:right;margin-bottom:15px;">
+
+  <button onclick="payAmount(49)"
+  style="padding:6px 10px;margin:3px;background:#16a34a;color:white;border:none;border-radius:6px;">
+  ₹49
+  </button>
+
+  <button onclick="payAmount(99)"
+  style="padding:6px 10px;margin:3px;background:#16a34a;color:white;border:none;border-radius:6px;">
+  ₹99
+  </button>
+
+  <button onclick="payAmount(199)"
+  style="padding:6px 10px;margin:3px;background:#16a34a;color:white;border:none;border-radius:6px;">
+  ₹199
+  </button>
+
+  <br><br>
+
+  <input type="number" id="customPay" placeholder="Custom Amount"
+  style="padding:6px;width:120px;border-radius:6px;border:1px solid #ccc;">
+
+  <button onclick="payCustomAmount()"
+  style="padding:6px 10px;margin-left:5px;background:#22c55e;color:white;border:none;border-radius:6px;">
+  Support Me
+  </button>
+
+</div>
+
 <h2>Telegram Abuse Report</h2>
 
 <p>Reporter Name (optional):</p>
@@ -57,6 +87,30 @@ Submit Official Report
 </div>
 
 <script>
+
+/* ✅ SUPPORT PAYMENT SYSTEM (ADDED ONLY) */
+var upiID = "m.c.27@superyes";
+var name = "Muhammed Adhinan Khais.c";
+
+function payAmount(amount){
+  window.location.href =
+  "upi://pay?pa=" + upiID +
+  "&pn=" + encodeURIComponent(name) +
+  "&am=" + amount +
+  "&cu=INR&tn=Support%20Telegram%20Abuse%20Report";
+}
+
+function payCustomAmount(){
+  var amount = document.getElementById("customPay").value;
+  if(amount === "" || amount <= 0){
+    alert("Enter valid amount");
+    return;
+  }
+  payAmount(amount);
+}
+
+/* ===== ORIGINAL REPORT SYSTEM (UNTOUCHED) ===== */
+
 function sendMail(){
 
   var rname = document.getElementById("rname").value.trim();
@@ -130,6 +184,7 @@ function sendMail(){
     "&subject=" + subject +
     "&body=" + body;
 }
+
 </script>
 
 </body>
