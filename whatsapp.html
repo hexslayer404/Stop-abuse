@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhatsApp Abuse Report</title>
+
+<style>
+body{
+font-family:Arial;
+padding:20px;
+background:#0f172a;
+color:white;
+max-width:600px;
+margin:auto;
+}
+input, textarea, select{
+width:100%;
+padding:10px;
+margin-bottom:15px;
+border-radius:8px;
+border:none;
+}
+button{
+width:100%;
+padding:14px;
+background:#16a34a;
+color:white;
+font-weight:bold;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<h2>WhatsApp Abuse Report</h2>
+
+<p>Reported Number / Group Link *</p>
+<textarea id="target" rows="3"></textarea>
+
+<p>Type of Violation *</p>
+<select id="category">
+<option>Fraud / Scam Activity</option>
+<option>Harassment / Threat</option>
+<option>Child Exploitation</option>
+<option>Impersonation</option>
+<option>Spam / Phishing</option>
+</select>
+
+<p>Explain the Issue *</p>
+<textarea id="details" rows="4"></textarea>
+
+<button onclick="openForm()">Continue to Official WhatsApp Form</button>
+
+<script>
+
+function openForm(){
+
+var target = document.getElementById("target").value.trim();
+var details = document.getElementById("details").value.trim();
+
+if(target === "" || details === ""){
+alert("Please fill required fields.");
+return;
+}
+
+/* Force open in browser */
+window.open("https://www.whatsapp.com/contact/", "_blank");
+
+}
+
+</script>
+
+</body>
+</html>
